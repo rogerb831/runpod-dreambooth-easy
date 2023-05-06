@@ -1,0 +1,11 @@
+--- requirements.txt	2023-05-06 13:20:08.893093355 +0000
++++ /workspace/backup/configs/requirements.txt	2023-05-06 13:35:31.759364666 +0000
+@@ -16,7 +16,7 @@
+ realesrgan
+ scikit-image>=0.19
+ timm==0.4.12
+-transformers==4.25.1
++transformers~=4.26.1
+ torch
+ einops
+ jsonmerge
