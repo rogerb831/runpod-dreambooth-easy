@@ -8,7 +8,16 @@ DREAMBOOTHCOMMIT="3324b6ab7fa661cf7d6b5ef186227dc5e8ad1878"
 WORKSPACE="/workspace"
 SDPATH="$WORKSPACE/stable-diffusion-webui"
 DBEPATH="$SDPATH/extensions/sd_dreambooth_extension"
-PATCHDIR="/workspace/backup"
+
+
+#check to see if the script is running in bash
+if [ -z "$BASH_VERSION" ]
+then
+    BASH=$(which bash)
+    echo "Please run this script with bash"
+    echo "Example: $BASH $0"
+    exit 1
+fi
 
 
 ######## FUNCTIONS ########
@@ -54,6 +63,29 @@ kill_relauncher () {
 
 
 ######## Main ########
+
+
+
+#if we get the --killonly argument, kill relauncher and children and exit
+if [ "$1" == "--killonly" ]
+then
+    kill_relauncher
+    exit 0
+fi
+
+#Check if we are running the script from the directory in which it resides
+if [ ! -f "runpod-dreambooth.sh" ]
+then
+    echo "Please run this script from the directory in which it resides."
+    exit 1
+else
+    PATCHDIR=$(pwd)
+fi
+
+
+
+
+
 
 
 #kill old stable diffusion webui
