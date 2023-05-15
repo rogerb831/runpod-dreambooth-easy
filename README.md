@@ -37,7 +37,7 @@ Different branches of this repository are targeted at different video. Below is 
 
 cd  /workspace
 
-git clone  https://github.com/rogerb831/runpod-dreambooth-easy.git
+git clone --branch A4LksIVas8 https://github.com/rogerb831/runpod-dreambooth-easy.git
 
 ```
 
