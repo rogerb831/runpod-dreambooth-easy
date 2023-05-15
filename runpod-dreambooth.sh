@@ -1,8 +1,5 @@
 #!/usr/bin/bash
 
-#Commit versions
-SDCOMMIT="22bcc7be428c94e9408f589966c2040187245d81"
-DREAMBOOTHCOMMIT="3324b6ab7fa661cf7d6b5ef186227dc5e8ad1878"
 
 #Paths
 WORKSPACE="/workspace"
@@ -66,8 +63,8 @@ kill_relauncher () {
 
 
 
-#if we get the --killonly argument, kill relauncher and children and exit
-if [ "$1" == "--killonly" ]
+#if we get the --killonly or --kill argument, kill relauncher and children and exit
+if [ "$1" == "--kill" ] || [ "$1" == "--killonly" ]
 then
     kill_relauncher
     exit 0
@@ -91,20 +88,25 @@ fi
 #kill old stable diffusion webui
 kill_relauncher
 
-#Revert Stable Diffusion WebUI to specific commit
-echo "Reverting Stable Diffusion WebUI to commit $SDCOMMIT"
-cd $SDPATH
-git reset --hard $SDCOMMIT
-git pull
+#Get the latest SD
+echo "Getting latest stable diffusion webui"
+cd $WORKSPACE
+#if stable diffusion webui directory exists, delete it
+if [ -d "stable-diffusion-webui" ]
+then
+    cp stable-diffusion-webui/relauncher.py /tmp
+    rm -rf stable-diffusion-webui
+fi
+#get the latest stable diffusion webui
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
+cp /tmp/relauncher.py $SDPATH
 
 
-#Clone Dreambooth extension with specific commit
-echo "Installing Dreambooth extension commit $DREAMBOOTHCOMMIT"
+#Get the latest Dreambooth extension
+echo "Installing latest Dreambooth extension"
 cd $SDPATH/extensions
 git clone https://github.com/d8ahazard/sd_dreambooth_extension.git
-cd $DBEPATH
-git reset --hard $DREAMBOOTHCOMMIT
-git pull
+
 
 #Apply patches
 cd $SDPATH
@@ -121,7 +123,3 @@ pip install -r requirements.txt
 cd $SDPATH
 pip install -r requirements.txt
 
-#Manual adjustments
-pip install torch==1.13.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
-pip uninstall -y xformers
-pip install https://huggingface.co/MonsterMMORPG/SECourses/resolve/main/xformers-0.0.18.dev489-cp310-cp310-manylinux2014_x86_64.whl
