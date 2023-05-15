@@ -28,7 +28,7 @@ Different branches of this repository are targeted at different video. Below is 
 3. Clone this repo to the /workspace directory
 ```shell
 cd  /workspace
-git clone  https://github.com/rogerb831/runpod-dreambooth-easy.git
+git clone --branch A4LksIVas8 https://github.com/rogerb831/runpod-dreambooth-easy.git
 ```
 4. Run the `runpod-dreambooth.sh` script contained
 ```shell
