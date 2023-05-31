@@ -123,12 +123,3 @@ pip install -r requirements.txt
 cd $SDPATH
 pip install -r requirements.txt
 
-#install dotenv
- pip install python3-dotenv
-
-#Revert torch
-pip uninstall torch
-pip3 install torch==1.13.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
-pip install https://huggingface.co/MonsterMMORPG/SECourses/resolve/main/xformers-0.0.19-cp310-cp310-manylinux2014_x86_64.whl
-
-
